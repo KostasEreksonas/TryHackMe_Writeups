@@ -8,7 +8,6 @@ Table of Contents
 	* [Port scan](#Port-scan)
 	* [Further port scan](#Further-port-scan)
 * [FTP login](#FTP-login)
-* [Password cracking](#Password-cracking)
 * [HTTP login](#HTTP-login)
 * [Exploiting HTTP server](#Exploiting-HTTP-server)
 
@@ -62,20 +61,7 @@ I have reset the password as you have asked. Please use the default password to 
 Also, please take care of the image file ;)
 - drac.
 ```
-This gives us the name of the user `john`. Also, it says that the password for user `john` has been reset and is set to default. Likely, this is the user of the webserver at port `62337`. Well, if the user has default password, it should not be hard to crack it.
-
-# Password cracking.
-For this I have used the tool `hydra`. The full command for this task was `hydra -t 4 -l john -P /usr/share/wordlists/rockyou.txt -vV IP http -s PORT`. A throughout explanation is presented below:
-```
--t - number of concurrent connections (in this case - 4).
--l - username for which we want to crack the password.
--P - specify location of the wordlist we want to use for cracking the password.
--vV - verbosity level. Printing out every attempt of username and password matching.
-IP - IP address of the target.
-http - specify type of the service that the target user is using (in this case - http).
--s - specify port of this service (if it is not standard).
-```
-The scan finished quickly and the password for the user `john` is, well, just `password`.
+This gives us a couple of usernames - `john` and `drac`. Also, it says that the password for user `john` has been reset and is set to default. Likely, this is the user of the webserver at port `62337`. Well, if the user has default password, it should not be hard to guess it... :)
 
 # HTTP login
 So I have logged into the server via `Firefox` browser with the username `john` and password `password` and it opens an web-based ***Codiad 2.8.4*** administration panel with some python scripts. Based on the scripts, this server is used for controlling IP cameras and is the one we need to gain shell access to.
