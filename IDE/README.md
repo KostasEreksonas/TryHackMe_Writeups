@@ -80,7 +80,7 @@ This gives us a couple of usernames - `john` and `drac`. Also, it says that the 
 
 # HTTP login
 
-So I have logged into the server via `Firefox` browser with the username `john` and password `password` and it opens an web-based ***Codiad 2.8.4*** administration panel with some python scripts. Based on the scripts, this server is used for controlling IP cameras and is the one we need to gain shell access to.
+So I have logged into the server via `Firefox` browser with the credentials for user `john` and it opens an web-based ***Codiad 2.8.4*** administration panel with some python scripts. Based on the scripts, this server is used for controlling IP cameras and is the one we need to gain shell access to.
 
 # Exploiting HTTP server
 
