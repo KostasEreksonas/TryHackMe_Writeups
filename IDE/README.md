@@ -18,6 +18,7 @@ Table of Contents
 # URL
 
 URL to the IDE room is: https://tryhackme.com/room/ide
+Clickable URL to the room is provided [here](https://tryhackme.com/room/ide)
 
 # Introduction
 
