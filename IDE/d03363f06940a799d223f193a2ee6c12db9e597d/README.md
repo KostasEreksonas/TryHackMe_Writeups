@@ -1,6 +1,5 @@
 # IDE
 This writeup is intended for IDE room in [TryHackMe](https://tryhackme.com).
-[Index](/IDE/index.html)
 
 Table of Contents
 =================
