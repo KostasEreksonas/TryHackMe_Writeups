@@ -7,10 +7,15 @@ Table of Contents
 * [Writeups]()
 
 # Introduction
+
 1. This repository is used for the writeups that I make for TryHackMe rooms that I complete.
 2. Every writeup will be placed in a different folder with it's own Readme.md file.
 3. Links to these Readme.md files will be placed in this file.
 
 # Writeups
+
 The links to made writeups will be placed here.
-1. [IDE](IDE/d03363f06940a799d223f193a2ee6c12db9e597d/README.md) - box for training enumeration skills.
+
+|							Name							  |				Description			   | Difficulty |
+|:-----------------------------------------------------------:|:----------------------------------:|:----------:|
+|[IDE](IDE/d03363f06940a799d223f193a2ee6c12db9e597d/README.md)| box for training enumeration skills|	Easy	|
