@@ -13,4 +13,4 @@ Table of Contents
 
 # Writeups
 The links to made writeups will be placed here.
-1. [IDE](IDE/index.html) - box for training enumeration skills.
+1. [IDE](IDE/ce258cb16f47f1c66f0b0b77f4e0fb8d/README.md) - box for training enumeration skills.
