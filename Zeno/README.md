@@ -5,16 +5,16 @@ Writeup for [Zeno](https://tryhackme.com/room/zeno) room at [TryHackMe](https://
 Table of Contents
 =================
 * [Port Scan](#Port-scan)
-* [Connecting to the Webserver](#Connecting-to-the-Webserver)
-* [Users Credentials](#Users-Credentials)
+* [Enumerating the Webserver](#Enumerating-the-Webserver)
+* [Remote Code Execution](#Remote-Code-Execution)
 
 # Port scan
 Firstly, I have set an environment variable `IP` of the target machine's IP address.
 Then I have conducted ***Nmap SYN*** scan against all of the TCP ports of the target machine with the command `sudo nmap -vv -sS -p- $IP` to see which ports are open. I had saved the following output to a file with `-oN` flag:
 
 ```
-# Nmap 7.60 scan initiated Sat Oct 23 10:27:21 2021 as: nmap -vv -sS -p- -oN enum.txt 10.10.94.20
-Nmap scan report for ip-10-10-94-20.eu-west-1.compute.internal (10.10.94.20)
+# Nmap 7.60 scan initiated Sat Oct 23 10:27:21 2021 as: nmap -vv -sS -p- -oN enum.txt 10.10.154.116
+Nmap scan report for ip-10-10-154-116.eu-west-1.compute.internal (10.10.154.116)
 Host is up, received arp-response (0.00042s latency).
 Scanned at 2021-10-23 10:27:21 BST for 155s
 Not shown: 65533 filtered ports
@@ -35,7 +35,7 @@ Against those ports I have performed a more comprehensive scan with the command 
 
 ```
 #Nmap 7.60 scan initiated Sat Oct 23 10:38:03 2021 as: nmap -vv -O -sV -sC -p 22,12340 -oN open_ports.txt 10.10.94.20
-Nmap scan report for ip-10-10-94-20.eu-west-1.compute.internal (10.10.94.20)
+Nmap scan report for ip-10-10-154-116.eu-west-1.compute.internal (10.10.154.116)
 Host is up, received arp-response (0.00043s latency).
 Scanned at 2021-10-23 10:38:03 BST for 17s
 
@@ -84,7 +84,7 @@ OS and Service detection performed. Please report any incorrect results at https
 On port ***22*** an `OpenSSH 7.4` ssh service is running.
 On port ***12340*** an `Apache httpd 2.4.6 (CentOS)` webeserver is running. This webserver also has `PHP/5.4.16` installed.
 
-# Connecting to the Webserver
+# Enumerating the Webserver
 
 Connecting to the webserver from within a browser gives ***Resource not found*** error shown below.
 
@@ -95,8 +95,8 @@ I have then used `nikto -h $IP -p 12340` command to enumerate the webserver's di
 ```
 - Nikto v2.1.5
 ---------------------------------------------------------------------------
-+ Target IP:          10.10.94.20
-+ Target Hostname:    ip-10-10-94-20.eu-west-1.compute.internal
++ Target IP:          10.10.154.16
++ Target Hostname:    ip-10-10-154-16.eu-west-1.compute.internal
 + Target Port:        12340
 + Start Time:         2021-10-23 11:05:36 (GMT1)
 ---------------------------------------------------------------------------
@@ -114,8 +114,36 @@ I have then used `nikto -h $IP -p 12340` command to enumerate the webserver's di
 + 1 host(s) tested``
 ```
 
-It tells that HTTP TRACE method is active on the webserver and that it is vulnerable to ***Cross-Site Tracing (XST)*** attack, which can be used for stealing user's credentials.
+For further enumeration of the webserver's directories I have used `gobuster dir -u http://$IP:12340 -w /usr/share/wordlists/dirb/big.txt` command, which resulted in the following:
 
-# Users Credentials
+```
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.154.116:12340/
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/10/23 14:20:25 Starting gobuster
+===============================================================
+/.htpasswd (Status: 403)
+/.htaccess (Status: 403)
+/rms (Status: 301)
+===============================================================
+2021/10/23 14:20:28 Finished
+===============================================================
+```
 
+The scan lists three possible directories, from which only `/rms` one is accessible. Going to this webserver's directory via a browser gives a homepage of Pathfinder Hotel Restaurant Management System.
 
+![Restaurant management system](/Zeno/images/Restaurant_management_system.png)
+
+The Google search of `restaurant management system exploit` led to a Remote Code Execution exploit for this system, written in Python.
+
+# Remote Code Execution
+
+The downloaded exploit had minor formatting issues. Although when I fixed those, I have got `Connection Refused` error on the proxy. So, for now, I will halt the writeup process.
