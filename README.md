@@ -19,4 +19,4 @@ The links to made writeups will be placed here.
 |							Name							  |				Description			   | Difficulty |
 |:-----------------------------------------------------------:|:----------------------------------:|:----------:|
 |[IDE](IDE/d03363f06940a799d223f193a2ee6c12db9e597d/README.md)|box for training enumeration skills |	Easy	|
-|[Zeno](/Zeno/Readme.md)									  |pentest machine and become root user|	Medium	|
+|[Zeno](/Zeno/README.md)									  |pentest machine and become root user|	Medium	|
