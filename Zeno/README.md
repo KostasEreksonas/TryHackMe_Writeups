@@ -146,4 +146,5 @@ The Google search of `restaurant management system exploit` led to a Remote Code
 
 # Remote Code Execution
 
-The downloaded exploit had minor formatting issues. Although when I fixed those, I have got `Connection Refused` error on the proxy. So, for now, I will halt the writeup process.
+The downloaded exploit had minor formatting issues.
+Although when I had tried running the exploit I got `[Errno 111] Connection refused` error with the `127.0.0.1:8080` proxy address.
