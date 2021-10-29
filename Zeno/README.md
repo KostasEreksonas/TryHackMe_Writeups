@@ -176,3 +176,6 @@ Getting back to /var/www/html/rms/connection folder and listing it's contets sho
 ![Database credentials](/Zeno/images/Database_credentials.png)
 
 Although connecting to mysql database from the shell with these credentials resulted in an error.
+The tried downloading LinPeas to the remote machine with curl, but it failed.
+Then I looked up in /etc/fstab file and found credentials for user zeno.
+Connected to the remote machine with these credentials via SSH and found the user.txt file with the first flag.
