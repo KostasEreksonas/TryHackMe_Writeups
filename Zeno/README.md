@@ -185,4 +185,4 @@ Connected to the remote machine with zeno password with user `edward` via SSH an
 # Root Access
 
 There is a writable service file named zeno-monitoring.
-Adding `ExecStart=/usr/bin/cp /root/root.txt /home/edward/rootflag.txt` to the zeno-monitoring service file and rebooting the machine leads to a readable root.txt with ***root flag*** after a reconnection to a rebooted machine.
+Adding `ExecStart=/usr/bin/cp /root/root.txt /home/edward/rootflag.txt` command to the zeno-monitoring service file and rebooting the machine leads to having a readable rootflag.txt file with ***root flag*** in edward's home directory after a reconnection to a rebooted machine.
