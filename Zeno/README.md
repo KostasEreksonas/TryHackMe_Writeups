@@ -9,6 +9,7 @@ Table of Contents
 * [Enumerating the Webserver](#Enumerating-the-Webserver)
 * [Remote Code Execution](#Remote-Code-Execution)
 * [Gaining Access](#Gaining-Access)
+* [Root Access](#Root-Access)
 
 # Port scan
 Firstly, I have set an environment variable `IP` of the target machine's IP address.
@@ -176,6 +177,12 @@ Getting back to /var/www/html/rms/connection folder and listing it's contets sho
 ![Database credentials](/Zeno/images/Database_credentials.png)
 
 Although connecting to mysql database from the shell with these credentials resulted in an error.
-The tried downloading LinPeas to the remote machine with curl, but it failed.
-Then I looked up in /etc/fstab file and found credentials for user zeno.
-Connected to the remote machine with these credentials via SSH and found the user.txt file with the first flag.
+***Update 10/29/2021***
+I tried downloading LinPeas to the remote machine with curl, but it failed.
+Then I looked up in /etc/fstab file and found credentials for user `edward` on zeno machine.
+Connected to the remote machine with zeno password with user `edward` via SSH and found the user.txt file with the first flag.
+
+# Root Access
+
+There is a writable service file named zeno-monitoring.
+Adding `ExecStart=/usr/bin/cp /root/root.txt /home/edward/rootflag.txt` to the zeno-monitoring service file and rebooting the machine leads to a readable root.txt with ***root flag*** after a reconnection to a rebooted machine.
