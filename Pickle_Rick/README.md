@@ -70,13 +70,13 @@ When I tried `cat` command in the Command Panel,`Command disabled` error was sho
 
 ![First flag](/Pickle_Rick/images/First_flag.png)
 
-There was also `clue.txt` file that ttold to look around the file system for the other ingredient.
+There was also `clue.txt` file that told to look around the file system for the other ingredient.
 
 ![Ingredient clue](/Pickle_Rick/images/Ingredient_clue.png)
 
 # Second Ingredient
 
-Looking at `/home/rick` directory the `second ingredients` file is found.
+Looking at `/home/rick` directory the `second ingredients` file was found.
 
 ![Second ingredient](/Pickle_Rick/images/Second_ingredient.png)
 
@@ -88,7 +88,7 @@ Opening this file with `less` command gave the second ingredient.
 
 Lastly, it was neccessary to find the third ingredient for Rick.
 One interesting directory to look at was the `/root` directory. One problem - this folder was only accessible by the root user.
-For that purpose I had checked what commands the current user can run as root with `sudo -l`.
+For that purpose I had checked what commands the current user could run as root with `sudo -l`.
 
 ![Run permissions](/Pickle_Rick/images/Run_permissions.png)
 
@@ -98,7 +98,7 @@ Turned out that the current user could run ***any*** commands as root ***without
 
 Listing contents of /root showed `3rd.txt` file.
 
-Viewing the 3rd.txt with `less` command gave the third flag.
+Viewing the 3rd.txt with `less` command gave the third ingredient.
 
 ![Third ingredient](/Pickle_Rick/images/Third_ingredient.png)
 
@@ -106,6 +106,6 @@ Challenge solved!
 
 # Extra
 
-The source code of Command panel had a ***Base64*** encoded string which, when decoded for several times, gave a two-word phrase, which I had not used in solving this CTF, but thought it was a fun thing to add.
+The source code of Command panel had a ***Base64*** encoded string which, when decoded for several times, gave a two-word phrase, `rabbit hole`, which I had not used in solving this CTF, but thought it was a fun thing to add.
 
 ![Rick source](/Pickle_Rick/images/Rick_source.png)
