@@ -4,7 +4,7 @@ In this repository I will publish writeups that I will make to various [TryHackM
 Table of Contents
 =================
 * [Introduction](#Introduction)
-* [Writeups]()
+* [Writeups](#Writeups)
 
 # Introduction
 
