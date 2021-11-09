@@ -19,5 +19,6 @@ The links to made writeups will be placed here.
 |							Name							  |				Description			   | Difficulty |
 |:-----------------------------------------------------------:|:----------------------------------:|:----------:|
 |[Pickle Rick](/Pickle_Rick/README.md)						  |A Rick and Morty themed CTF		   |	Easy	|
+|[Basic Pentesting](/Basic_Pentesting/README.md)			  |Web app hacking and privesc		   |	Easy	|
 |[IDE](IDE/d03363f06940a799d223f193a2ee6c12db9e597d/README.md)|box for training enumeration skills |	Easy	|
 |[Zeno](/Zeno/README.md)									  |pentest machine and become root user|	Medium	|
