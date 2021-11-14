@@ -16,15 +16,13 @@ Table of Contents
 
 The links to made writeups will be placed here.
 
-|				   	   Name						|			  Description			 | Difficulty |
-|:---------------------------------------------:|:----------------------------------:|:----------:|
-|[Pickle Rick](/Pickle_Rick/README.md)			|A Rick and Morty themed CTF		 |	Easy	  |
-|[Basic Pentesting](/Basic_Pentesting/README.md)|Web app hacking and privesc		 |	Easy	  |
-|[IDE](IDE/README.md)							|Box for training enumeration skills |	Easy	  |
-|[Zeno](/Zeno/README.md)						|Pentest machine and become root user|	Medium	  |
-|:---------------------------------------------:|:----------------------------------:|:----------:|
-|											  Other												  |
-|:---------------------------------------------:|:----------------------------------:|:----------:|
-|					   Name						|			  Description			 | Difficulty |
-|:---------------------------------------------:|:----------------------------------:|:----------:|
-|[Steel Mountain](/Steel_Mountain/README.md)	||	N/A	|
+|				   	   Name						|				 Description				 | Difficulty |
+|:---------------------------------------------:|:------------------------------------------:|:----------:|
+|[Pickle Rick](/Pickle_Rick/README.md)			|A Rick and Morty themed CTF				 |	  Easy	  |
+|[Basic Pentesting](/Basic_Pentesting/README.md)|Web app hacking and privesc				 |	  Easy	  |
+|[IDE](IDE/README.md)							|Box for training enumeration skills		 |	  Easy	  |
+|[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
+|:---------------------------------------------:|:------------------------------------------:|:----------:|
+|					   Name						|					Description				 | Difficulty |
+|:---------------------------------------------:|:------------------------------------------:|:----------:|
+|[Steel Mountain](/Steel_Mountain/README.md)	|Hack into a Mr. Robot themed Windows machine|		N/A	  |
