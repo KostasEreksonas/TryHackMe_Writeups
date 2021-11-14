@@ -22,7 +22,8 @@ The links to made writeups will be placed here.
 |[Basic Pentesting](/Basic_Pentesting/README.md)|Web app hacking and privesc				 |	  Easy	  |
 |[IDE](IDE/README.md)							|Box for training enumeration skills		 |	  Easy	  |
 |[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
-|:---------------------------------------------:|:------------------------------------------:|:----------:|
+
+
 |					   Name						|					Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
-|[Steel Mountain](/Steel_Mountain/README.md)	|Hack into a Mr. Robot themed Windows machine|		N/A	  |
+|[Steel Mountain](/Steel_Mountain/README.md)	|Hack into a Mr. Robot themed Windows machine|	  N/A	  |
