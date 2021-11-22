@@ -43,7 +43,7 @@ Navigating to the specified IP address leads to a simple Bootstrap Hello World w
 Clicking on "View details" button below LFI-attack paragraph leads to an unformatted HTML page telling about LFI attack.
 It also gives a `name` parameter that could be exploited with this attack.
 
-![LFI webpage](/Inclusion/images/LFI_webpage.png)
+![LFI parameter](/Inclusion/images/LFI_parameter.png)
 
 # Initial Exploitation
 
