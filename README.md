@@ -23,7 +23,7 @@ The links to made writeups will be placed here.
 |[Basic Pentesting](/Basic_Pentesting/README.md)|Web app hacking and privesc				 |	  Easy	  |
 |[IDE](IDE/README.md)							|Box for training enumeration skills		 |	  Easy	  |
 |[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
-
+|[Scripting](/Scripting/README.md)				|Learn basic scritping by solving challenges |	 Medium	  |
 
 |					   Name						|					Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
