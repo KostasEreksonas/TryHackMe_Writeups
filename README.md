@@ -24,6 +24,7 @@ The links to made writeups will be placed here.
 |[IDE](IDE/README.md)							|Box for training enumeration skills		 |	  Easy	  |
 |[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
 |[Scripting](/Scripting/README.md)				|Learn basic scritping by solving challenges |	 Medium	  |
+|[ToolsRus](/ToolsRus/README.md)				|Practise using pentesting tools			 |	  Easy	  |
 
 |					   Name						|					Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
