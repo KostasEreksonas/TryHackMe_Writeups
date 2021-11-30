@@ -1,6 +1,6 @@
 # Pickle Rick Writeup
 
-A writeup for [Pickle Rick](https://tryhackme.com/room/picklerick) CTF on [TryHackMe.com](https://tryhackme.com)
+A writeup for [Pickle Rick](https://tryhackme.com/room/picklerick) room on [TryHackMe.com](https://tryhackme.com)
 
 URL for Pickle Rick CTF room is: https://tryhackme.com/room/picklerick
 
