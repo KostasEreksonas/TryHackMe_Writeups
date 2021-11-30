@@ -18,6 +18,7 @@ The links to made writeups will be placed here.
 
 |				   	   Name						|				 Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
+|[RootMe](/RootMe/README.md)					|A ctf for begginers						 |	  Easy	  |
 |[Inclusion](/Inclusion/README.md)				|A begginer level LFI challenge				 |	  Easy	  |
 |[Pickle Rick](/Pickle_Rick/README.md)			|A Rick and Morty themed CTF				 |	  Easy	  |
 |[Basic Pentesting](/Basic_Pentesting/README.md)|Web app hacking and privesc				 |	  Easy	  |
