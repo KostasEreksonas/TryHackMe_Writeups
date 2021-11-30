@@ -1,6 +1,6 @@
 # Inclusion
 
-Writeup for Inclusion room on [Tryhackme.com](https://tryhackme.com)
+Writeup for [Inclusion](https://tryhackme.com/room/inclusion) room on [Tryhackme.com](https://tryhackme.com)
 
 URL for this room is https://tryhackme.com/room/inclusion
 
