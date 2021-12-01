@@ -136,7 +136,7 @@ Now I did set up a `netcat` listener on port ***1234*** for the reverse shell.
 
 Then I had gone to the next interesting directory that I found earlier.
 
-![Uploaded Files](/RootMe/images/Uploaded_files.png)
+![Uploaded Files](/RootMe/images/Uploaded_Files.png)
 
 The reverse shell with `.png` extension was interpreted as an image file, so it was necessary to find another file extension that would work.
 
