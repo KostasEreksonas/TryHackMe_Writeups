@@ -138,7 +138,7 @@ Next there is an user password reset page.
 
 ![Password Reset](/Road/images/Password_Reset.png)
 
-The field for changing the username is greyed out, so it is not possible to add the admin email address from the page itself. To bypass this, let's capture the password reset request with ***Burpsuite*** and change the username to `admin@sky.thm` before sending the request to the server.
+The field for changing the username is greyed out, so it is not possible to input the admin email address into a password reset form and chamge it's password from the webpage itself. To bypass this, I will capture the password reset request with ***Burpsuite*** and change the username to `admin@sky.thm` before sending the request to the server.
 
 ![Burp Capture](/Road/images/Burp_Capture.png)
 
@@ -156,11 +156,11 @@ Success!
 
 Admin user ***can*** upload image files to the server. This functionality could also be used to upload a reverse shell into the server.
 
-Scrolling through the source code of the web application, the file upload directory could be found.
+Scrolling through the source code of the web application, the file upload directory can be found.
 
 ![Upload Location](/Road/images/Upload_Location.png)
 
-I have taken the PHP reverse shell script from [Pentestmonkey github page]() and changed the IP address for the reverse shell to connect to my Kali machine.
+I have taken the PHP reverse shell script from [Pentestmonkey Github page](https://github.com/pentestmonkey/php-reverse-shell) and changed the IP address for the reverse shell to connect to my Kali machine.
 
 The webpage apparently has no extension filter as I successfully uploaded the `.php` file as is.
 
@@ -192,7 +192,7 @@ The server has both `mongodb` and `mysql` database processes running.
 
 Issuing `mongo` command starts an instance of MongoDB shell.
 
-The are four databases, the one named `backup` has `collection` and `user` collections. Inside the user collection there are login credentials for the user `webdeveloper`.
+The are four databases, the one named ***backup*** has `collection` and `user` collections. Inside the user collection there are login credentials for the user `webdeveloper`.
 
 ![User Credentials](/Road/images/User_Credentials.png)
 
@@ -204,15 +204,15 @@ Issuing `sudo -l` command shows that `sky_backup_utility` can be run as root wit
 
 ![Vulnerable Service](/Road/images/Vulnerable_Service.png)
 
-Since the user `webdeveloper` is in `sudo` group, another possible attack vector is `pkexec` command, which allows an authorized user to execute program as another user.
+Although checking of what groups the user `webdeveloper` is a member of shows that this user is in a `sudo` group, which means that another possible attack vector is `pkexec` command, which allows an authorized user to execute a specific program as another user.
 
 ![Webdeveloper Groups](/Road/images/Webdeveloper_Groups.png)
 
-One problem is that pkexec has a bug that [it fails in a non-graphical environment](https://bugs.launchpad.net/ubuntu/+source/policykit-1/+bug/1821415)
+One problem is that pkexec has a bug that [makes it fail in a non-graphical environment](https://bugs.launchpad.net/ubuntu/+source/policykit-1/+bug/1821415)
 
 ![Pkexec Bug](/Road/images/Pkexec_Bug.png)
 
-The solution is to open second terminal, SSH as `webdeveloper` user, pass the `pkttyagent` authentication process PID to the second terminal and, when authentication is complete, `root` shell spawns on the first terminal.
+The solution is to open second terminal, SSH into webserver as the same `webdeveloper` user, pass the `pkttyagent` authentication process PID from first to the second terminal and, when authentication in the second terminal is complete, `root` shell spawns in the first terminal.
 
 ![Pkexec Workaround](/Road/images/Pkexec_Workaround.png)
 
