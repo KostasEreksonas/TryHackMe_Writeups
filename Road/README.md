@@ -108,7 +108,7 @@ Opening the webpage with Firefox, "Sky Couriers" webpage is shown.
 
 ![Webpage](/Road/images/Webpage.png)
 
-Searching for some random string in "Track Order" field redirects to an URL Not Found error and shows a couple of SQL parameters within the URL that might be injectable.
+Searching for some random string in "Track Order" field redirects to an URL Not Found error page and shows a couple of SQL parameters within the URL that might be injectable.
 
 ![Order Tracking](/Road/images/Order_Tracking.png)
 
@@ -130,7 +130,7 @@ Logging in with the previously created credentials gave me a dashboard.
 
 # Admin Account
 
-Looking around my newly created ***profile*** page and searching for any clickable buttons, it is possible to find an admin email address.
+Looking around the newly created ***profile*** page and searching for any clickable buttons, it is possible to find an admin email address.
 
 ![Profile Page](/Road/images/Profile_Page.png)
 
@@ -138,7 +138,7 @@ Next there is an user password reset page.
 
 ![Password Reset](/Road/images/Password_Reset.png)
 
-The field for changing the username is greyed out, so it is not possible to input the admin email address into a password reset form and chamge it's password from the webpage itself. To bypass this, I will capture the password reset request with ***Burpsuite*** and change the username to `admin@sky.thm` before sending the request to the server.
+The field for changing the username is greyed out, so it is not possible to input the admin email address into a password reset form and change admin's password from the webpage itself. To bypass this, I will capture the password reset request with ***Burpsuite*** and change the username to `admin@sky.thm` before sending the request to the server.
 
 ![Burp Capture](/Road/images/Burp_Capture.png)
 
