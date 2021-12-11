@@ -218,7 +218,7 @@ The solution is to open second terminal, SSH into webserver as the same `webdeve
 
 Now it is possible to change the directory to `root` and cat the flag in `root.txt`.
 
-![Root Flag](/Road/images/Root_Flag.txt)
+![Root Flag](/Road/images/Root_Flag.png)
 
 # Summary
 
