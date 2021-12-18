@@ -27,3 +27,4 @@ The links to made writeups will be placed here.
 |[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
 |[Road](/Road/README.md)						|Inspired by a real-world pentest engagement |	 Medium	  |
 |[Scripting](/Scripting/README.md)				|Learn basic scritping by solving challenges |	 Medium	  |
+|[CyberCrafted](/CyberCrafted/README.md)		|Pwn this pay-to-win Minecraft server		 |	 Medium	  |
