@@ -6,13 +6,14 @@ URL for Overpass room is: https://tryhackme.com/room/overpass
 Table of Contents
 =================
 * [Port Scan](#Port-Scan)
-* [Web Application](#Web-Application)
 * [Directory Enumeration](#Directory-Enumeration)
+* [Web Application](#Web-Application)
 * [Source Code Analysis](#Source-Code-Analysis)
 * [SSH Login](#SSH-Login)
 * [Privillege Escalation](#Privillege-Escalation)
 	* [System Enumeration](#System-Enumeration)
-	* [Plan of Exploitation](#Plan-of-Exploitation)
+	* [System Exploitation](#System-Exploitation)
+* [Conclusion](#Conclusion)
 
 # Port Scan
 
@@ -193,7 +194,7 @@ Linpeas scan of the target system revealed a couple of interesting things:
 
 ![Editable Hosts](/Overpass/images/Editable_Hosts.png)
 
-## Plan of Exploitation
+## System Exploitation
 
 1. Root user gets buildscript.sh from a `/downloads/source` directory from `overpass.thm` and pipes it to bash.
 2. Since I can edit `/etc/hosts` file, I can bind ***my*** IP with overpass.thm domain.
@@ -204,5 +205,22 @@ Linpeas scan of the target system revealed a couple of interesting things:
 7. SUID bit is added to the `/bin/bash` executable.
 8. Running `/bin/bash -p` command gives root shell.
 9. Navigating to `/root` directory and reading `root.txt` file gives root flag.
+
+# Conlusion
+
+1. Scanned ports with nmap.
+2. Enumerated directories with gobuster.
+3. Found potential cipher method within the web application source code.
+4. Within admin panel found a Javascript code, which sets cookie value.
+5. This `Cookie.set` mechanism could be used for authentication bypass and to access admin panel.
+6. Private SSH key was found as well as username.
+7. SSH key had a passphrase, which was cracked with John the Ripper.
+8. Logged into the system, found the user flag.
+9. Downloaded LinPeas to the target system.
+10. Found a cronjob that is executed as root every minute and downloads a script from a specific location.
+11. Created a corresponding directory on my local machine.
+12. Created a script to add sticky bit to `/bin/bash`.
+13. After the cronjob executed, I issued `/bin/bash -p` command on the target and got root shell.
+14. I obtained the root flag.
 
 Done!
