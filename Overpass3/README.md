@@ -16,6 +16,7 @@ Table of Contents
 	* [SSH Port Forwarding](#SSH-Port-Forwarding)
 	* [NFS Mount](#NFS-Mount)
 * [Privillege Escalation](#Privillege-Escalation)
+* [Summary](#Summary)
 
 # Port Scan
 
@@ -225,5 +226,18 @@ Lastly, I will execute `./bash -p` on the remote machine as james. And it gives 
 Now heading to `/root` directory and reading the `root.flag` file gives the root flag.
 
 ![Root Flag](/Overpass3/images/Root_Flag.png)
+
+# Summary
+
+1. Port scanning, which revealed 3 open ports.
+2. Directory enumeration showed a directory with an accessible backup archive.
+3. Inside the archive there was an encrypted spreadsheet file, which contained user credentials.
+4. One of the user had FTP access.
+5. When connected via FTP, a writable FTP folder allowed to upload a reverse shell and gain shell access to the system.
+6. Normalzed the shell and switched to paradox user.
+7. Found an insecure NFS configuration using Linpeas.
+8. Successfully executed SSH port forwarding and mounted the NFS share locally.
+9. Copied a local /bin/bash executable to the share and changed it's ownership and permissions.
+10. Successfully obtained root shell.
 
 Done!
