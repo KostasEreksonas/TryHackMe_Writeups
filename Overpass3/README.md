@@ -10,7 +10,7 @@ Table of Contents
 * [Web Application](#Web-Application)
 * [Backup Analysis](#Backup-Analysis)
 * [FTP Login](#FTP-Login)
-* [Shell Normalization](#Shell-Normalization)
+* [Shell Stabilization](#Shell-Stabilization)
 * [System Enumeration](#System-Enumeration)
 * [NFS Exploit](#NFS-Exploit)
 	* [SSH Port Forwarding](#SSH-Port-Forwarding)
@@ -23,8 +23,8 @@ Table of Contents
 Using `nmap` I was able to identify ports ***21***, ***22*** and ***80*** as open.
 
 ```
-# Nmap 7.92 scan initiated Wed Jan 19 12:36:24 2022 as: nmap -vv -sS -oN Initial_scan.txt 10.10.69.92
-Nmap scan report for 10.10.69.92
+# Nmap 7.92 scan initiated Wed Jan 19 12:36:24 2022 as: nmap -vv -sS -oN Initial_scan.txt 10.10.73.174
+Nmap scan report for 10.10.73.174
 Host is up, received echo-reply ttl 63 (0.17s latency).
 Scanned at 2022-01-19 12:36:25 EST for 12s
 Not shown: 980 filtered tcp ports (no-response), 17 filtered tcp ports (admin-prohibited)
@@ -40,8 +40,8 @@ Read data files from: /usr/bin/../share/nmap
 A detailed nmap scan revealed some more information about the target's open ports.
 
 ```
-# Nmap 7.92 scan initiated Wed Jan 19 12:39:00 2022 as: nmap -vv -sS -sV -sC -O -oN open_ports.txt -p 21,22,80 10.10.69.92
-Nmap scan report for 10.10.69.92
+# Nmap 7.92 scan initiated Wed Jan 19 12:39:00 2022 as: nmap -vv -sS -sV -sC -O -oN open_ports.txt -p 21,22,80 10.10.73.174
+Nmap scan report for 10.10.73.174
 Host is up, received echo-reply ttl 63 (0.071s latency).
 Scanned at 2022-01-19 12:39:00 EST for 16s
 
@@ -143,8 +143,33 @@ Using `find` command I was able to figure out that the ***web flag*** is in `/us
 
 ![Web Flag](/Overpass3/images/Web_Flag.png)
 
-# Shell Normalization
+# Shell Stabilization
 
+More information about shell stabilization can be found [here](https://jasonturley.xyz/how-to-stabilize-a-reverse-shell/)
+
+1. Spawn a tty using Python:
+
+```
+python -c 'import pty; pty.spawn("/bin/sh")'
+```
+
+2. Background it with Ctrl+Z:
+
+```
+CTRL^Z
+```
+
+3. Disable text display on the attacker machine and switch to the foregrounded process:
+
+```
+stty raw -echo && fg
+```
+
+4. Set terminal evironment:
+
+```
+export TERM=xterm-256-color
+```
 
 # System Enumeration
 
@@ -234,7 +259,7 @@ Now heading to `/root` directory and reading the `root.flag` file gives the root
 3. Inside the archive there was an encrypted spreadsheet file, which contained user credentials.
 4. One of the user had FTP access.
 5. When connected via FTP, a writable FTP folder allowed to upload a reverse shell and gain shell access to the system.
-6. Normalzed the shell and switched to paradox user.
+6. Stabilized the shell and switched to paradox user.
 7. Found an insecure NFS configuration using Linpeas.
 8. Successfully executed SSH port forwarding and mounted the NFS share locally.
 9. Copied a local /bin/bash executable to the share and changed it's ownership and permissions.
