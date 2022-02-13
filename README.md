@@ -27,6 +27,7 @@ The links to made writeups will be placed here.
 |[Overpass 3](/Overpass3/README.md)				|Overpass is now a hosting provider			 |	  Easy	  |
 |[IDE](IDE/README.md)							|Box for training enumeration skills		 |	  Easy	  |
 |[ToolsRus](/ToolsRus/README.md)				|Practise using pentesting tools			 |	  Easy	  |
+|[Gallery](/Gallery/README.md)					|Exploitation of image gallery system		 |	  Easy	  |
 |[Zeno](/Zeno/README.md)						|Pentest machine and become root user		 |	 Medium	  |
 |[Road](/Road/README.md)						|Inspired by a real-world pentest engagement |	 Medium	  |
 |[Scripting](/Scripting/README.md)				|Learn basic scritping by solving challenges |	 Medium	  |
