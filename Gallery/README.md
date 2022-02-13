@@ -239,15 +239,16 @@ Going to `/root` directory and reading the `root.txt` file gives the root flag.
 The summary of my solution of Gallery CTF is as follows:
 
 1. The webserver had 2 open ports, one of them redirected to an image gallery Content Management System.
-2. There was a written RCE exploit for this CMS that uses SQLi and uploads a webshell into the webserver.
-3. The web application had a vulnerable image upload function, which allows to upload PHP files.
+2. There was a written RCE exploit for this CMS that uses SQLi and uploads a webshell into the server.
+3. The web application had a vulnerable image upload function, which allowed to upload PHP files.
 4. I uploaded the reverse shell to the webserver, captured it with `netcat` and then upgraded the shell with `socat`.
-5. Within the `/var/www/html` directory I found a file with mysql database credentials, within this database I found admin user's password hash.
-6. Exploring the target system's directories I found backups for the user `mike`, which contained the password for mike's account on the system.
+5. Searching through the `/var/www/html` directory I found a file with mysql database credentials.
+6. Connected to this database, I found admin user's password hash.
+7. Exploring  directories of the target system I found backups for the user `mike`, which contained the password for mike's account on the system.
 7. Switched to user mike and got the user flag.
 8. As user mike I exported xterm as terminal emulator and issued `/bin/bash /opt/rootkit.sh` command as root, which
-   opened nano editor.
-9. Found GTFOBins exploit for nano, which gave me root shell.
-10. Headed to `/root` directory and retrieved root flag.
+   opened `nano` editor.
+9. Found GTFOBins exploit for nano, executing it gave me root shell.
+10. Headed to `/root` directory and got the root flag.
 
 Done!
