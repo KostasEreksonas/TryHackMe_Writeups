@@ -15,7 +15,7 @@ Table of Contents
 
 # Port Scan
 
-Issuing port scan with `nmap` showed 3 open ports.
+Issuing port scan with `nmap` showed 3 open ports - ***ftp***, ***ssh*** and ***http***.
 
 ```
 # Nmap 7.92 scan initiated Wed Feb 16 02:38:56 2022 as: nmap -vv -sS -oN enum.txt 10.10.108.167
@@ -198,7 +198,7 @@ Going to the `/root` directory and reading `root.txt` file gives root flag.
 
 # Conclusion
 
-1. Port scan showed that the target system has ftp, ssh and http services running.
+1. Port scan showed that the target system has 3 services running.
 2. FTP service allowed anonymous login.
 3. Inside the FTP server, there was two text files - one file had an username for SSH. THe other file contained a password list.
 4. Using Hydra and the found password list I brute forced the correct password for the user.
