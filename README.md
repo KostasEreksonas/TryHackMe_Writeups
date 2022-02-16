@@ -19,6 +19,7 @@ The links to made writeups will be placed here.
 |				   	   Name						|				 Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
 |[Agent Sudo](/Agent_Sudo/README.md)			|Hack inside the server and reveal the truth |	  Easy	  |
+|[Bounty Hacker](/Bounty_Hacker/README.md)		|Prove that you are elite bounty hacker		 |	  Easy	  |
 |[RootMe](/RootMe/README.md)					|A ctf for begginers						 |	  Easy	  |
 |[Inclusion](/Inclusion/README.md)				|A begginer level LFI challenge				 |	  Easy	  |
 |[Pickle Rick](/Pickle_Rick/README.md)			|A Rick and Morty themed CTF				 |	  Easy	  |
