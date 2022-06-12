@@ -1,7 +1,7 @@
 # Mr. Phisher
 
 Writeup for [Mr. Phisher](https://tryhackme.com/room/mrphisher) room at [TryHackMe.com](https://tryhackme.com/)
-URL for Gallery room is: https://tryhackme.com/room/mrphisher
+URL for Mr. Phisher room is: https://tryhackme.com/room/mrphisher
 
 Table of Contents
 =================
