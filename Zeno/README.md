@@ -32,7 +32,7 @@ Read data files from: /usr/bin/../share/nmap
 ```
 
 The open ports are:
-1. Port ***22*** runnign SSH service.
+1. Port ***22*** running SSH service.
 2. Port ***12340*** with an unknown service running.
 Against those ports I have performed a more comprehensive scan with the command `nmap -vv -O -sV -sC -p 22,12340 $IP`. I was able to get the following information:
 
