@@ -14,7 +14,7 @@ Table of Contents
 
 # Writeups
 
-The links to made writeups will be placed here.
+List of completed writeups is shown below.
 
 |				   	   Name						|				 Description				 | Difficulty |
 |:---------------------------------------------:|:------------------------------------------:|:----------:|
