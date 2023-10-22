@@ -1,5 +1,5 @@
 # TryHackMe Writeups
-In this repository I will publish writeups that I will make to various [TryHackMe](https://tryhackme.com/) rooms that I take.
+A repository for writeups that I make for various [TryHackMe](https://tryhackme.com/).
 
 Table of Contents
 =================
