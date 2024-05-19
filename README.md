@@ -1,5 +1,5 @@
 # TryHackMe Writeups
-A repository for writeups that I make for various [TryHackMe](https://tryhackme.com/) rooms.
+A repository for writeups that I made for various [TryHackMe](https://tryhackme.com/) rooms.
 
 Table of Contents
 =================
